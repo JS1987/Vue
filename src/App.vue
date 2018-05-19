@@ -3,13 +3,21 @@
     
     <h1>Witaj w systemie do zapisów na zajecia</h1>
     
-    <div v-if="!isAuthenticated || email.length < 5">
-      <input type="email" v-model="email">
-      <button @click="logIn()">Wchodzę</button>
+    <div v-if="!authenticatedEmail">
+      
+      <login-form @login="logMeIn($event)"
+      
+                  :button-label="'W c h o d z ę!!!'"></login-form>
+
+                  <login-form @login="logMeIn($event)"
+                        :button-label="'Wejdz'"></login-form>
+                  
+                  <login-form @login="logMeIn($event)"
+                        :button-label="'Wlec'"></login-form>
     </div>
     
     <div v-else>
-      Zalogowany jako {{email}}
+      Zalogowany jako {{authenticatedEmail}}
       <button @click="logOut()">Wyloguj</button>
     </div>
 
@@ -18,13 +26,14 @@
 
 <script>
 import "milligram";
+import LoginForm from "./LoginForm";
 
 export default {
   name: 'app',
+  components: {LoginForm},
   data() {
   return {
-    email: '',
-    isAuthenticated: false
+    authenticatedEmail: ''
   }
 },
   methods: {
@@ -33,12 +42,12 @@ export default {
   }
 },
   methods: {
-    logIn() {
-      this.isAuthenticated = true;
-    },
     logOut() {
-      this.isAuthenticated = false;
-    }
+      this.authenticatedEmail = '';
+    },
+    logMeIn(email) {
+  this.authenticatedEmail = email;
+}
   }
 }
 </script>
