@@ -1,7 +1,22 @@
 <template>
   <div id="app">
     <img src="./assets/logo.png">
-    <h1>{{ msg }}</h1>
+    <h1>Twoj e-mail to {{ email.toLowerCase() }}</h1>
+    
+    <div v-if="!isAuthenticated || email.length < 5">
+      <input type="email" v-model="email">
+      <button @click="logIn()">Wchodzę</button>
+    </div>
+    
+    <div v-else>
+      Zalogowany jako {{email}}
+      <button @click="logOut()">Wyloguj</button>
+    </div>
+
+    
+
+
+
     <h2>Essential Links</h2>
     <ul>
       <li><a href="https://vuejs.org" target="_blank">Core Docs</a></li>
@@ -22,9 +37,23 @@
 <script>
 export default {
   name: 'app',
-  data () {
-    return {
-      msg: 'Hello World!!!'
+  data() {
+  return {
+    email: '',
+    isAuthenticated: false
+  }
+},
+  methods: {
+  alertMyEmail() {
+    alert(this.email);
+  }
+},
+  methods: {
+    logIn() {
+      this.isAuthenticated = true;
+    },
+    logOut() {
+      this.isAuthenticated = false;
     }
   }
 }
