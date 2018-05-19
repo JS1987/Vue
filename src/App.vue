@@ -35,6 +35,8 @@
 </template>
 
 <script>
+import "milligram";
+
 export default {
   name: 'app',
   data() {
